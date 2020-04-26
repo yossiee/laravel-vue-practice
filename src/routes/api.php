@@ -18,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
+Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::post('/logout', 'Auth\LoginController@louout')->name('logout');

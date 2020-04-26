@@ -1,0 +1,33 @@
+name: Publish Image
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opend, synchronize, reopend]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build image
+      env:
+        TZ: Asia/Tokyo
+      run: |
+        docker build \
+          -t ${{ github.repository }}:${{ github.sha }} \
+          -f ./docker/php/Dockerfile . \
+          --build-arg TZ=$TZ
+    - name: Login to registry
+      env:
+        DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      run: |
+        echo "$DOCKER_HUB_PASSWORD" | docker login \
+          --username ${{ github.actor }} --password-stdin
+    - name: Push image to registry
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      run: |
+        echo ${{ github.ref }} ${{ github.event_name }}
+        docker push ${{ github.repository }}:${{ github.sha }}

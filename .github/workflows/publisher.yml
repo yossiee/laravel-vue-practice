@@ -1,8 +1,5 @@
 name: Publish Docker Image
 on:
-  push:
-    branches:
-      - master
   pull_request:
     types: [opend, synchronize, reopend]
 
@@ -13,8 +10,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Build image
+      env:
+        TZ: Asia/Tokyo
       run: |
-        docker build -t ${{ github.repository }}:${{ github.sha }} ./docker/php/Dockerfile
+        docker build \
+          -t ${{ github.repository }}:${{ github.sha }} \
+          -f ./docker/php/Dockerfile . \
+          -build-arg TZ=${{ TZ }}
     - name: Login to registry
       run: |
-        docker login -u ${{ github.actor }} -p ${{ secret.DOCKER_HUB_PASSWORD }}
+        docker login -u ${{ github.actor }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}

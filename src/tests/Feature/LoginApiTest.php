@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use App\User;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginApiTest extends TestCase
 {
@@ -15,12 +15,11 @@ class LoginApiTest extends TestCase
     {
         parent::setUp();
 
+        // テストユーザー作成
         $this->user = factory(User::class)->create();
     }
 
     /**
-     * A basic feature test.
-     *
      * @test
      */
     public function should_登録済みのユーザーを認証して返却する()

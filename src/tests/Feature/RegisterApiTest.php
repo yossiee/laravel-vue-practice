@@ -2,35 +2,34 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use App\User;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterApiTest extends TestCase
 {
     use RefreshDatabase;
 
     /**
-     * A basic feature test example.
-     *
-     * @return void
+     * @test
      */
     public function should_新しいユーザーを作成して返却する()
     {
         $data = [
-            'name' => 'test username',
-            'email' => 'test@gmail.com',
-            'password' => 'password',
-            'password_confirmation' => 'password'
+            'name' => 'vuesplash user',
+            'email' => 'dummy@email.com',
+            'password' => 'test1234',
+            'password_confirmation' => 'test1234',
         ];
 
-        $response = $this-json('POST', route('register', $data));
+        $response = $this->json('POST', route('register'), $data);
 
         $user = User::first();
         $this->assertEquals($data['name'], $user->name);
 
-        $response->assertStatus(201)
+        $response
+            ->assertStatus(201)
             ->assertJson(['name' => $user->name]);
     }
 }

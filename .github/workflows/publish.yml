@@ -8,9 +8,9 @@ on:
       - 'docs/**'
   pull_request:
     types:
-      - opend
+      - opened
       - synchronize
-      - reopend
+      - reopened
     paths-ignore:
       - '**.md'
       - 'docs/**'

@@ -70,13 +70,11 @@ export default {
       }
     }
   },
-  computed: {
-    computed: mapState({
-      apiStatus: state => state.auth.apiStatus,
-      loginErrors: state => state.auth.loginErrorMessages,
-      registerErrors: state => state.auth.registerErrorMessages
-    }),
-  },
+  computed: mapState({
+    apiStatus: state => state.auth.apiStatus,
+    loginErrors: state => state.auth.loginErrorMessages,
+    registerErrors: state => state.auth.registerErrorMessages
+  }),
   methods: {
     async login () {
     // authストアのloginアクションを呼び出す

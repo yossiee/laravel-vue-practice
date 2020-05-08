@@ -46,6 +46,7 @@ class LoginController extends Controller
 
     protected function loggedOut(Request $request)
     {
+        // セッションを再生成する
         $request->session()->regenerate();
 
         return response()->json();

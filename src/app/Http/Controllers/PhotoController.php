@@ -49,6 +49,10 @@ class PhotoController extends Controller
             DB::rollBack();
             // DBとの不整合を避けるためアップロードしたファイルを削除
             Storage::cloud()->delete($photo->filename);
+            \Log::error($exception->getMessage(), [
+                $request->photo,
+                $photo->filename
+            ]);
             throw $exception;
         }
 

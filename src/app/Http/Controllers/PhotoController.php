@@ -13,6 +13,7 @@ class PhotoController extends Controller
 {
     public function __construct()
     {
+        // 認証が必要
         $this->middleware('auth');
     }
 
@@ -27,6 +28,7 @@ class PhotoController extends Controller
         $extension = $request->photo->extension();
 
         $photo = new Photo();
+
         // インスタンス生成時に割り振られたランダムなID値と
         // 本来の拡張子を組み合わせてファイル名とする
         $photo->filename = $photo->id . '.' . $extension;
@@ -43,7 +45,7 @@ class PhotoController extends Controller
         try {
             Auth::user()->photos()->save($photo);
             DB::commit();
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             DB::rollBack();
             // DBとの不整合を避けるためアップロードしたファイルを削除
             Storage::cloud()->delete($photo->filename);

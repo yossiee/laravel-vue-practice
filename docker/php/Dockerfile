@@ -1,9 +1,14 @@
 FROM php:7.4-fpm-alpine
 LABEL maintainer "yossiee"
 
-ARG TZ
-ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV COMPOSER_HOME /composer
+ENV TZ=Asia/Tokyo \
+  # locale
+  LANG=ja_JP.UTF-8 \
+  LANGUAGE=ja_JP:ja \
+  LC_ALL=ja_JP.UTF-8 \
+  # composer environment
+  COMPOSER_ALLOW_SUPERUSER=1 \
+  COMPOSER_HOME=/composer
 
 RUN set -eux && \
     apk update && \

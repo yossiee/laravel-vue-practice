@@ -3,9 +3,10 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
+    paths:
+      - 'docker-compose.yml'
+      - 'docker/**'
+      - '.github/workflows/**'
   pull_request:
     types:
       - opened
@@ -16,7 +17,8 @@ on:
       - 'docs/**'
 
 jobs:
-  build:
+  docker:
+    name: build image and publish to registry
     runs-on: ubuntu-latest
     steps:
     - name: Checkout

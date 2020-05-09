@@ -37,6 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $visible = ['name'];
+
     /**
      * リレーションシップ - photosテーブル
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

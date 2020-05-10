@@ -115,7 +115,7 @@ class PhotoController extends Controller
      * @param StoreComment $request
      * @return \Illuminate\Http\Response
      */
-    public function addComment(StoreComment $request)
+    public function addComment(Photo $photo, StoreComment $request)
     {
         $comment = new Comment;
         $comment->content = $request->get('content');
